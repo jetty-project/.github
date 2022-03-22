@@ -151,8 +151,7 @@ jobs:
           matrix.os != inputs.ff-os ||
           matrix.jdk != inputs.ff-jdk ||
           matrix.distribution != inputs.ff-jdk-distribution ||
-          inputs.verify-goal != inputs.ff-goal ||
-          inputs.verify-site-goal != inputs.ff-site-goal
+          inputs.verify-goal != inputs.ff-goal
         run: echo ok
 
       - name: Checkout
