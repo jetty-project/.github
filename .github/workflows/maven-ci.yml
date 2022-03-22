@@ -18,13 +18,13 @@ on:
       os-matrix:
         description: 'os matrix as json array'
         required: false
-        default: '[ "ubuntu-latest", "windows-latest", "macOS-latest" ]'
+        default: '[ "ubuntu-latest" ]'
         type: string
 
       jdk-matrix:
         description: 'jdk matrix as json array'
         required: false
-        default: '[ "8", "11", "17" ]'
+        default: '[  "11" ]'
         type: string
 
       matrix-exclude:
