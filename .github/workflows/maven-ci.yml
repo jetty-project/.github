@@ -131,7 +131,7 @@ jobs:
 
   verify:
     needs: fail-fast-build
-    name: ${{ matrix.os }} jdk-${{ matrix.jdk }}-${{ matrix.distribution }}-mvn-${{maven_version}}
+    name: ${{ matrix.os }} jdk-${{ matrix.jdk }}-${{ matrix.distribution }}-mvn-${{ inputs.maven_version }}
     timeout-minutes: ${{ inputs.timeout-minutes }}
     runs-on: ${{ matrix.os }}
 
