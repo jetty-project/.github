@@ -51,36 +51,7 @@ on:
         default: '[ "temurin" ]'
         type: string
 
-      # fail fast job setup
-      ff-os:
-        description: The os used during fail-fast-build job
-        required: false
-        default: 'ubuntu-latest'
-        type: string
 
-      ff-jdk:
-        description: The jdk version used during fail-fast-build job
-        required: false
-        default: '11'
-        type: string
-
-      ff-jdk-distribution:
-        description: The jdk distribution used during fail-fast-build job
-        required: false
-        default: 'temurin'
-        type: string
-
-      ff-goal:
-        description: The Maven goal used by fail-fast-build job
-        required: false
-        default: '-P run-its verify'
-        type: string
-
-      ff-timeout-minutes:
-        description: 'timeout-minutes used by fail-fast-build jobs (defaults to 360)'
-        required: false
-        default: 360
-        type: number
 
       verify-goal:
         description: The Maven goal used by verfy jobs
@@ -101,36 +72,7 @@ concurrency:
 
 jobs:
 
-  # verify build on one node - before matrix will start
-  fail-fast-build:
-    name: ${{ inputs.ff-os }} jdk-${{ inputs.ff-jdk }}-${{ inputs.ff-jdk-distribution }}-mvn-${{ inputs.maven_version }}
-    runs-on: ${{ inputs.ff-os }}
-    timeout-minutes: ${{ inputs.ff-timeout-minutes }}
-    # execute on any push or pull request from forked repo
-    if: github.event_name == 'push' || ( github.event_name == 'pull_request' && github.event.pull_request.head.repo.fork )
-
-    steps:
-
-      - name: Checkout
-        uses: actions/checkout@v3
-        with:
-          persist-credentials: false
-
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          java-version: ${{ inputs.ff-jdk }}
-          distribution: ${{ inputs.ff-jdk-distribution }}
-          cache: 'maven'
-
-      - name: Set up Maven
-        run: mvn --errors --batch-mode --show-version wrapper:wrapper "-Dmaven=${{ inputs.maven_version }}"
-
-      - name: Build with Maven
-        run: ./mvnw --errors --batch-mode --show-version ${{ inputs.maven_args }} ${{ inputs.ff-goal }}
-
-  verify:
-    needs: fail-fast-build
+  build:
     name: ${{ matrix.os }} jdk-${{ matrix.jdk }}-${{ matrix.distribution }}-mvn-${{ inputs.maven_version }}
     timeout-minutes: ${{ inputs.timeout-minutes }}
     runs-on: ${{ matrix.os }}
