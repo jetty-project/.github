@@ -103,7 +103,7 @@ jobs:
 
   # verify build on one node - before matrix will start
   fail-fast-build:
-    name: ${{ inputs.ff-os }} jdk-${{ inputs.ff-jdk }}-${{ inputs.ff-jdk-distribution }}
+    name: ${{ inputs.ff-os }} jdk-${{ inputs.ff-jdk }}-${{ inputs.ff-jdk-distribution }}-mvn-${{ inputs.maven_version }}
     runs-on: ${{ inputs.ff-os }}
     timeout-minutes: ${{ inputs.ff-timeout-minutes }}
     # execute on any push or pull request from forked repo
@@ -131,7 +131,7 @@ jobs:
 
   verify:
     needs: fail-fast-build
-    name: ${{ matrix.os }} jdk-${{ matrix.jdk }}-${{ matrix.distribution }}
+    name: ${{ matrix.os }} jdk-${{ matrix.jdk }}-${{ matrix.distribution }}-mvn-${{maven_version}}
     timeout-minutes: ${{ inputs.timeout-minutes }}
     runs-on: ${{ matrix.os }}
 
