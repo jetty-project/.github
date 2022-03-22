@@ -46,6 +46,8 @@ categories:
     labels: 
       - test
       - tests
+  - title: 🔧 Build
+    label: build         
 exclude-labels:
   - reverted
   - no-changelog
