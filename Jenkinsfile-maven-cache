@@ -1,0 +1,11 @@
+#!groovy
+
+pipeline {
+  agent none
+  options {
+    mavenCache(enable: true)
+  }
+  triggers {
+    mavenCacheCleaner(spec: '@daily', expirationDays: 7)
+  }
+}  
