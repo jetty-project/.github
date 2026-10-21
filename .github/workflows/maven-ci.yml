@@ -98,7 +98,7 @@ jobs:
 
       - name: Checkout
         if: steps.should-run.conclusion == 'success'
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           persist-credentials: false
           submodules: recursive
